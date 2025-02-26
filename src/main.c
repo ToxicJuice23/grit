@@ -47,7 +47,6 @@ int main(void) { // tell the program we dont take arguments for main
 	// That was pointer basics for you lol
 
 	// scanf needs the address of x so it can modify the value. Otherwise the functions simply gets a copy
-	int result = f(x);
 	printf("f(%d) = %d\n", x, f(x));
 	// the %d is a format specifier.
 	/*
