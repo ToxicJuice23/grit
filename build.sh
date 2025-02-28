@@ -4,6 +4,7 @@ if [[ -d "./src" && -d "./tests" ]]; then
 else
 	echo "Script is in wrong directory"
 	echo "Please run in root dir of project"
+	echo "Build failed."
 	exit 1
 fi
 
@@ -18,6 +19,7 @@ if [ "$(gcc -dumpversion | cut -d. -f1)" -gt 11 ]; then
 	echo "GCC version is greater than 11, proceeding.."
 else
 	echo "GCC version is 11 or lower, exiting.."
+	echo "Build failed."
 	exit 1
 fi
 
@@ -30,3 +32,5 @@ elif [ $0 = "clean" ]; then
 else
 	gcc -o $target $src $CFLAGS $LDFLAGS
 fi
+
+echo "Build was successful!"

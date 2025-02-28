@@ -3,50 +3,64 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #define true (uint8_t)1
 #define false (uint8_t)0
-// not necessairy for a c program but gives you access to input/output function
+#define err(x,y) return (intErr_t){x, y}
+
+typedef struct {
+	int Val;
+	int Error; // 0 clear ; 1 error
+} intErr_t;
 
 int f(int x) {
 	double res = pow((x-4), 3);
-	return (int)res; // (int) tells the program convert to int
-	// CAUTION: YOU CANT CONVERT STRINGS TO INT USING CASTING
-	// use strtol or other functions like sscanf for that.
+	return (int)res;
 }
 
-// must define a main function so the program knows when to start
-int main(void) { // tell the program we dont take arguments for main
+intErr_t readInt(char** buf, int sz) {
+	// check if null ptr
+	if (buf == NULL) {
+		fprintf(stderr, "Invalid memory address given to readInt().\n");
+		err(false, true);
+	}
+	
+	char* b = *buf;
+	if (b == NULL) {
+		fprintf(stderr, "Invalid memory address given to readInt().\n");
+		err(false, true);
+	}
+
+	char* res = fgets(b, sz, stdin); 
+	// check if fgets was successful
+	if (res != b) {
+		fprintf(stderr, "fgets failed.\nError: %s\n", strerror(errno));
+		err(false, true);
+	}
+
+	b[strlen(b) - 1] = 0; // remove nl and terminate
+
+	char* endptr = NULL;
+	int x = 0;
+	x = (int)strtol(b, &endptr, 10); // base 10
+	if (endptr == b) { // no digit was found
+		fprintf(stderr, "Please enter a digit.\n");
+		err(false, true);
+	}
+
+	err(x, false);
+}
+
+int main(void) {
 	char* buf = malloc(100);
-	uint8_t done = false;
-	int x = 0; // declare a variable
-	while (!done) {
-		printf("f(x) = (x-4)^3\nx = "); // print basic
-
-
-		char* res = fgets(buf, 100, stdin); // read all the input so that we can ignore extra chars
-
-		// check if fgets was successful
-		if (res != buf) {
-			fprintf(stderr, "fgets failed.\n");
-			continue;
-		}
-
-		buf[strlen(buf) - 1] = 0; // remove the newline so we can use it again and fgets will wait for us
-		// complicated process to safely convert to int
-		char* endptr = NULL;
-		x = (int)strtol(buf, &endptr, 10); // base 10
-		if (endptr == buf) { // no digit was found
-			fprintf(stderr, "Please enter a digit.\n");
-			continue;
-		}
-		done = true;
-    	}
-    	// the opposite of & is *
-	// for example:
-	// *(&x) cancels out because * tells c to go look at that memory address
-	// That was pointer basics for you lol
-
-	// scanf needs the address of x so it can modify the value. Otherwise the functions simply gets a copy
+	int invalid = true;
+	int x = 0;
+	while (invalid) {
+		printf("f(x) = (x-4)^3\nx = ");
+		intErr_t input = readInt(&buf, 100);
+		invalid = input.Error;
+		x = input.Val;
+    }
 	printf("f(%d) = %d\n", x, f(x));
 	// the %d is a format specifier.
 	/*
