@@ -22,8 +22,15 @@ fi
 ./build.sh clean
 sed -i -e "s/example/$1/g" build.sh
 
+#!/bin/bash
+upper=${$1^^}
+#!/bin/sh
+echo $upper
+
 mv ./src/example.c ./$1.c
 mv ./src/example.h ./$1.h
 
 sed -i -e "s/example/$1/g" ./src/$1.c
-sed -i -e "s/example/$1/g" ./src/$2.c
+sed -i -e "s/example/$1/g" ./src/$1.h
+sed -i -e "s/EXAMPLE/$upper/g" ./src/$1.c // todo make $1 upper yo
+sed -i -e "s/EXAMPLE/$upper/g" ./src/$1.h
