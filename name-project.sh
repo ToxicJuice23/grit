@@ -1,6 +1,7 @@
 #!/bin/sh
 if [ $# -eq 0 ]; then
     echo "No argument was supplied."
+    printf "Usage:\n./name-project.sh [{new name}|reset]\n"
     echo "Terminating script."
     exit 1
 fi
@@ -22,9 +23,9 @@ fi
 ./build.sh clean
 sed -i -e "s/example/$1/g" build.sh
 
-#!/bin/bash
+
 upper=$(echo "$1" | tr '[:lower:]' '[:upper:]')
-#!/bin/sh
+
 echo $upper
 
 mv ./src/example.c ./src/$1.c
@@ -32,5 +33,5 @@ mv ./src/example.h ./src/$1.h
 
 sed -i -e "s/example/$1/g" ./src/$1.c
 sed -i -e "s/example/$1/g" ./src/$1.h
-sed -i -e "s/EXAMPLE/$upper/g" ./src/$1.c // todo make $1 upper yo
+sed -i -e "s/EXAMPLE/$upper/g" ./src/$1.c
 sed -i -e "s/EXAMPLE/$upper/g" ./src/$1.h
