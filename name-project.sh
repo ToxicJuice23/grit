@@ -8,7 +8,7 @@ fi
 if [ $1 = "reset" ]; then
     echo "Are you sure you want to reset your project?"
     read -p "y/n?: " ans
-    if [ ans = "y" | ans = "Y" | ans = "yes" | ans = "YES" ] then
+    if [ $ans = "y" ] || [ $ans = "Y" ] || [ $ans = "yes" ] || [ $ans = "YES" ]; then
         echo "Reseting now."
         git fetch origin
         git reset --hard origin/master
@@ -23,12 +23,12 @@ fi
 sed -i -e "s/example/$1/g" build.sh
 
 #!/bin/bash
-upper=${$1^^}
+upper=$(echo "$1" | tr '[:lower:]' '[:upper:]')
 #!/bin/sh
 echo $upper
 
-mv ./src/example.c ./$1.c
-mv ./src/example.h ./$1.h
+mv ./src/example.c ./src/$1.c
+mv ./src/example.h ./src/$1.h
 
 sed -i -e "s/example/$1/g" ./src/$1.c
 sed -i -e "s/example/$1/g" ./src/$1.h
