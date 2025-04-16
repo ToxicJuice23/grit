@@ -10,5 +10,5 @@ int f(int x) {
 	if (x == 2)
 		return 0;
 	return (2 * x) - 5;*/
-	return 1000*x;
+	return 1000;
 }

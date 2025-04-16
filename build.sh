@@ -36,8 +36,8 @@ elif [ $1 = "debug" ]; then
 elif [ $1 = "clean" ]; then
 	rm -rf build
 elif [ $1 = "test" ]; then
-	gcc -o $obj -c $src $CFLAGS $LDFLAGS
-	gcc -o $test_target $test_src $obj $CFLAGS $LDFLAGS $TESTFLAGS
+	gcc -o $obj -c $src $CFLAGS $LDFLAGS -w
+	gcc -o $test_target $test_src $obj $CFLAGS $LDFLAGS $TESTFLAGS -w
 	./$test_target
 	rm -f $test_target $obj
 	exit 0

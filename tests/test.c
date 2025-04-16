@@ -37,8 +37,9 @@ float run_tests(float(**tests)(void), int n_tests) {
 
     for (int i=0; i<n_tests; i++) {
         current_perc = (*tests[i])();
-        if ((int)current_perc == -1) {
+        if (current_perc == -1) {
             printf("%sTest #%d failed critically.\n%s", RED, i+1, RESET);
+            exit(1);
         } else if ((int)current_perc != 1) {
             printf("%sTest #%d: %.2f%%\n%s", YELLOW, i+1, current_perc, RESET);
         } else {
