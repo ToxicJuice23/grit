@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <example.h>
-#include <stdbool.h>
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"      /* Black */
 #define RED     "\033[31m"      /* Red */
@@ -10,27 +9,40 @@
 #define MAGENTA "\033[35m"      /* Magenta */
 #define CYAN    "\033[36m"      /* Cyan */
 #define WHITE   "\033[37m"      /* White */
-#define N_TESTS 1
+#define N_TESTS 1 // INCREMENT THIS NUMBER WITH NUMBER OF test_x FUNCTIONS
+
+// float test_{function_name}(void) should return the percentage of success
 
 float test_f(void) {
     int fails = 0;
-    int n_cases = 1;
-    if (f(4) != 0) {
+    int n_cases = /* CHANGE AS YOU ADD CASES*/1;
+    // ADD CASES HERE LIKE SO
+    // MAKE SURE TO ADD CRITICAL FAILURES FIRST.
+    if (f(0) > 100) {
+        return -1; // return -1 as critical failure
+    } else if (f(2) != 0) {
+        fails++;
+    } else if (f(0) != -5) {
         fails++;
     }
+    // else if (conditon != expectation) fails++
+    // DO NOT MODIFY BELOW
     return (float)(n_cases-fails)/(float)n_cases;
 }
 
+// DO NOT MODIFY!!
 float run_tests(float(**tests)(void), int n_tests) {
     float sum_perc = 0;
     float current_perc = 0;
 
     for (int i=0; i<n_tests; i++) {
         current_perc = (*tests[i])();
-        if ((int)current_perc != 1) {
-            printf("Test #%d: %.2f%%\n", i+1, current_perc);
+        if ((int)current_perc == -1) {
+            printf("%sTest #%d failed critically.\n%s", RED, i+1, RESET);
+        } else if ((int)current_perc != 1) {
+            printf("%sTest #%d: %.2f%%\n%s", YELLOW, i+1, current_perc, RESET);
         } else {
-            printf("Passed test #%d.\n", i+1);
+            printf("%sPassed test #%d.\n%s", GREEN, i+1, RESET);
         }
         sum_perc += current_perc;
     }
