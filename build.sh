@@ -1,4 +1,9 @@
 #!/bin/sh
+if [ $1 = "help" ]; then
+	printf "%s [option]\n\tbuild: default\n\tdebug: build a debuggable executable\n\tclean: remove all build files\n\ttest: run the tests in test.c (see README.md)\n\trun: build, run, cleanup\n" $0
+	exit 0
+fi
+
 if [ -d "./src" ] && [ -d "./tests" ]; then
 	echo "Building in correct dir"
 	echo "Proceeding.."
