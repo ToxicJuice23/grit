@@ -11,8 +11,9 @@ if [ $1 = "reset" ]; then
     read -p "y/n?: " ans
     if [ $ans = "y" ] || [ $ans = "Y" ] || [ $ans = "yes" ] || [ $ans = "YES" ]; then
         echo "Reseting now."
-        git fetch origin
-        git reset --hard origin/master
+        rm -r ./*
+        git fetch
+        git reset --hard
         exit 0
     fi
     echo "Reset was aborted by user."
