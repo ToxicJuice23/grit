@@ -1,4 +1,12 @@
 #!/bin/sh
+rename_file() {
+    upper=$(echo "$1" | tr '[:lower:]' '[:upper:]')
+    sed -i -e "s/example/$1/g" ./src/$2.c
+    sed -i -e "s/example/$1/g" ./src/$2.h
+    sed -i -e "s/EXAMPLE/$upper/g" ./src/$2.c
+    sed -i -e "s/EXAMPLE/$upper/g" ./src/$2.h
+}
+
 if [ $# -eq 0 ]; then
     echo "No argument was supplied."
     printf "Usage:\n./name-project.sh [{new name}|reset]\n"
@@ -24,19 +32,13 @@ fi
 ./build.sh clean
 sed -i -e "s/example/$1/g" build.sh
 
-
 upper=$(echo "$1" | tr '[:lower:]' '[:upper:]')
-
 echo $upper
 
 mv ./src/example.c ./src/$1.c
 mv ./src/example.h ./src/$1.h
 
-sed -i -e "s/example/$1/g" ./src/$1.c
-sed -i -e "s/example/$1/g" ./src/$1.h
-sed -i -e "s/EXAMPLE/$upper/g" ./src/$1.c
-sed -i -e "s/EXAMPLE/$upper/g" ./src/$1.h
-sed -i -e "s/example/$1/g" ./tests/test.c
-sed -i -e "s/example/$1/g" ./tests/test.h
-sed -i -e "s/EXAMPLE/$upper/g" ./tests/test.c
-sed -i -e "s/EXAMPLE/$upper/g" ./tests/test.h
+rename_file $1 $1
+rename_file $1 test
+sed -i -e "s/example/$1/g" ./src/main.c
+sed -i -e "s/EXAMPLE/$upper/g" ./src/main.c

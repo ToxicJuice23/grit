@@ -7,7 +7,8 @@
  - `$ git init .`
  - `$ git add .`
  - `$ git commit -m "initial commit"`
- - `$ gh repo create`
+ - `$ gh repo create` (optional)
+ - `git push`
 
 
 #### if name-project.sh was ran by accident:
