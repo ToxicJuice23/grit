@@ -1,10 +1,10 @@
 #!/bin/sh
 rename_file() {
     upper=$(echo "$1" | tr '[:lower:]' '[:upper:]')
-    sed -i -e "s/example/$1/g" ./src/$2.c
-    sed -i -e "s/example/$1/g" ./src/$2.h
-    sed -i -e "s/EXAMPLE/$upper/g" ./src/$2.c
-    sed -i -e "s/EXAMPLE/$upper/g" ./src/$2.h
+    sed -i -e "s/example/$1/g" ./$2.c
+    sed -i -e "s/example/$1/g" ./$2.h
+    sed -i -e "s/EXAMPLE/$upper/g" ./$2.c
+    sed -i -e "s/EXAMPLE/$upper/g" ./$2.h
 }
 
 if [ $# -eq 0 ]; then
@@ -38,7 +38,7 @@ echo $upper
 mv ./src/example.c ./src/$1.c
 mv ./src/example.h ./src/$1.h
 
-rename_file $1 $1
-rename_file $1 test
+rename_file $1 src/$1
+rename_file $1 tests/test
 sed -i -e "s/example/$1/g" ./src/main.c
 sed -i -e "s/EXAMPLE/$upper/g" ./src/main.c
