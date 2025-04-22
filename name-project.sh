@@ -22,6 +22,7 @@ if [ $1 = "reset" ]; then
         rm -r ./*
         git fetch
         git reset --hard
+        git pull https://github.com/ToxicJuice23/grit
         exit 0
     fi
     echo "Reset was aborted by user."
