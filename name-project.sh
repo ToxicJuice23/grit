@@ -35,3 +35,7 @@ sed -i -e "s/example/$1/g" ./src/$1.c
 sed -i -e "s/example/$1/g" ./src/$1.h
 sed -i -e "s/EXAMPLE/$upper/g" ./src/$1.c
 sed -i -e "s/EXAMPLE/$upper/g" ./src/$1.h
+sed -i -e "s/example/$1/g" ./tests/test.c
+sed -i -e "s/example/$1/g" ./tests/test.h
+sed -i -e "s/EXAMPLE/$upper/g" ./tests/test.c
+sed -i -e "s/EXAMPLE/$upper/g" ./tests/test.h
