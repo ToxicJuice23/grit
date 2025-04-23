@@ -1,6 +1,6 @@
 #include "example.h"
 
-int f(int x) {
+int example(int x) {
 	// example function
 	/* f(x) {
 	 * 		x = 2: 0

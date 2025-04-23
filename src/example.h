@@ -3,6 +3,6 @@
 #include <stdio.h>
 #include "example.h"
 
-int f(int x);
+int example(int x);
 
 #endif

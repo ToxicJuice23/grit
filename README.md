@@ -1,4 +1,4 @@
-## A template C project initializer
+# Grit: a C project initializer
 ### Instructions
  - `# ./name-project.sh {project name}`
  
