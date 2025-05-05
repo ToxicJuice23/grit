@@ -15,7 +15,7 @@
 #define WHITE   "\033[37m"      /* White */
 #define TEST_CASE n_cases++; if
 #define TEST_FUNCTION(x) float x(void) {
-#define RETURN_PERCENTAGE return (float)(n_cases-fails)/(float)n_cases;
+#define RETURN_PERCENTAGE return (float)(n_cases-fails)/(float)n_cases*100;
 #define CRITICAL_FAIL return -1;
 #define FAIL fails++;
 
@@ -29,7 +29,7 @@ float run_tests(float(**tests)(void), int n_tests) {
         if (current_perc == -1) {
             printf("%sTest #%d failed critically.\n%s", RED, i+1, RESET);
             exit(1);
-        } else if ((int)current_perc != 1) {
+        } else if ((int)current_perc != 100) {
             printf("%sTest #%d: %.2f%%\n%s", YELLOW, i+1, current_perc, RESET);
         } else {
             printf("%sPassed test #%d.\n%s", GREEN, i+1, RESET);

@@ -29,7 +29,7 @@ int main(void) {
     
     float p = run_tests(tests, N_TESTS);
 
-    if ((int)p != 1) {
+    if ((int)p != 100) {
         printf("Failed with a total of %.2f%%\n", p);
         return 1;
     } else {
